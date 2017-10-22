@@ -1,17 +1,19 @@
 import org.jfree.chart.ChartFactory;
-        import org.jfree.chart.ChartPanel;
-        import org.jfree.chart.JFreeChart;
-        import org.jfree.chart.plot.PlotOrientation;
-        import org.jfree.data.category.DefaultCategoryDataset;
-        import org.jfree.ui.ApplicationFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.ApplicationFrame;
 
-        import javax.swing.*;
-        import java.awt.*;
+import javax.swing.*;
+import java.awt.*;
 
 public class HistogramDisplay extends ApplicationFrame{
 
-    public HistogramDisplay() {
+    private final Histogram<String> histogram;
+    public HistogramDisplay(Histogram<String> histogram) {
         super("HISTOGRAM");
+        this.histogram=histogram;
         setContentPane(createPanel());
         pack();
     }
@@ -34,10 +36,9 @@ public class HistogramDisplay extends ApplicationFrame{
     }
     private DefaultCategoryDataset createDataset(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(4,"","gmail.com");
-        dataset.addValue(6,"","outlook.com");
-        dataset.addValue(8,"","hotmail.com");
-        dataset.addValue(15,"","ulpgc.com");
+        for (String key: histogram.keySet()){
+            dataset.addValue(histogram.get(key),"",key);
+        }
         return dataset;
     }
 }
